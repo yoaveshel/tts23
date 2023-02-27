@@ -1,0 +1,292 @@
+\begin{exercise}{1}
+    If $f,g\colon X\rightrightarrows Y$ are arrows and $\graph(f)=\graph(g)$, then $f=g$.
+    \begin{solution}
+        \begin{proof}
+            Since $\langle 1_Y, f\rangle$ and $\langle 1_Y, g\rangle$ are monos and represent the same subobject of $Y\times X$, we have that $\langle 1_Y, f\rangle=\langle 1_Y, g\rangle$. Then
+            \[f=\pi_X\circ \langle 1_Y, f\rangle=\pi_X\circ\langle 1_Y, g\rangle=g.\]
+        \end{proof}
+    \end{solution}
+\end{exercise}
+
+\begin{exercise}{2}
+    Show, using \ref{ex:1}, that the singleton map is always monic. 
+    \begin{solution}
+        \begin{solutions}
+            \item\begin{proof}
+                Let $f,g\colon Y\to X$ such that $\singleton\circ f=\singleton\circ g\colon Y\to\Omega^X$. Let $H\colon X\times Y\to \Omega$ be the transpose of $\singleton\circ f=\singleton\circ g$. We argue that $H$ classifies both $\langle f, 1_Y\rangle$ and $\langle g, 1_Y\rangle$. Since transposition is a bijection between maps $Y\to\Omega^X$ and $X\times Y\to\Omega$, we have that
+                \[\begin{tikzcd}
+                    X\times\Omega^X \arrow[rr, "\ev{X}"]                            &  & \Omega \\
+                    X\times X \arrow[rru, "\Delta"] \arrow[u, "1_X\times\{\cdot\}"] &  &        \\
+                    X\times Y \arrow[u, "1_X\times f"] \arrow[rruu, "H"']           &  &       
+                \end{tikzcd}\]
+                commutes, so in particular $H=\Delta\circ 1_X\times f$.
+                Note that the left and right squares in
+                \[\begin{tikzcd}
+                    Y \arrow[r, "f"] \arrow[d, "{\langle f, 1_Y\rangle}"'] & X \arrow[r, "!_X"] \arrow[d, "\delta_X"'] & 1 \arrow[d, "t"] \\
+                    X\times Y \arrow[r, "1_X\times f"']                    & X\times X \arrow[r, "\Delta"']            & \Omega          
+                \end{tikzcd}\]
+                are pullback squares\footnote{
+                    The right square is a pullback by definition of $\Delta$. The left square certainly commutes, and it is a pullback since for any diagram $X\times Y\xleftarrow{h_2} Z\xrightarrow{h_1} X$ such that $\langle h_1, h_1\rangle=(1_X\times f)\circ h_@$, we can take $\pi_Yh_2\colon Z\to Y$.
+                }, so the outer square is a pullback as well. Hence, $H$ classify $\langle f, 1_Y\rangle$. Arguing analougsly, we conclude that $H$ classifies $g$ as well. Hence $\langle f, 1_Y\rangle = \langle g, 1_Y\rangle$ and by \ref{ex:1} it follows that $f=g$, so $\singleton$ is monic. 
+            \end{proof}
+            \item\begin{proof}
+                Let $f\colon Y\to X$. Then $\singleton\circ f\colon Y\to\Omega^X$ and we can take its transpose $\overline{\singleton\circ f}\colon X\times Y\to\Omega$. I claim this map classifies $\langle f, 1_Y\rangle\colon Y\to X\times Y$. 
+            \end{proof}
+        \end{solutions}
+    \end{solution}
+\end{exercise}
+
+\begin{exercise}{3}
+    Let $f\colon Y\to X$ be a map.
+    \begin{exercises}
+        \item Show that the maps
+            \[X\times Y\xrightarrow{\singleton\times 1_Y}\Omega^X\times Y\xrightarrow{1_{\Omega^X}\times f}\Omega^X\times X\xrightarrow{\ev{X}}\Omega\]
+            and
+            \[X\times Y\xrightarrow{1_X\times f}X\times X\xrightarrow{\Delta}\Omega\]
+            are equal.
+        \item Let $Pf\colon\Omega^X\to\Omega^Y$ be the exponential transpose of the map
+            \[\Omega^X\times Y\xrightarrow{1_{\Omega^X}\times f}\Omega^X\times X\xrightarrow{\ev{X}}\Omega.\]
+            Show that the exponential transpose of the map
+            \[X\xrightarrow{\singleton}\Omega^X\xrightarrow{Pf}\Omega^Y\]
+            is the map
+            \[Y\times X\xrightarrow{f\times 1_X}X\times X\xrightarrow{\Delta}\Omega\]
+    \end{exercises}
+    \begin{solution}
+        \begin{exercises}
+            \item\begin{proof}
+                \begin{align*}
+                    \ev{X}\circ (1_{\Omega_X}\times f) \circ(\singleton\times 1_Y)&=\ev{X}\circ(\singleton\times f)\\
+                    &=\ev{X}\circ(\singleton\times 1_X)\circ(1_X\times f)\\
+                    &=\Delta\circ(1_X\times f).
+                \end{align*}
+            \end{proof}
+            \item\begin{proof}
+                Since
+                \begin{align*}
+                    \ev{Y}\circ\left(1_Y\times(Pf\circ\singleton)\right)&=\ev{Y}\circ(1_Y\times Pf)\circ(1_Y\times \singleton)\\
+                    &=\ev{X}\circ(1_{\Omega_X}\times f)\circ(1_Y\times\singleton),
+                \end{align*}
+                the result follows from part (i).
+            \end{proof}
+        \end{exercises}
+    \end{solution}
+\end{exercise}
+
+\begin{exercise}{4}
+    Show that the map $\ev{X,Y}$, thus defined, is indeed a natural transformation.
+    \begin{solution}
+        \begin{proof}
+            Explicitly, we want to show that $\ev{X}\colon (-)^X\times X\Rightarrow\Delta_{(-)}$ is a natural transformation between functors $\presheaf\Ccal\to\presheaf\Ccal$. Indeed, for $C\in\ob\Ccal$, $\phi\colon y_C\times X\to Y$ in $Y^XC$, $x\in XC$ and $f\colon Y\to Y'$ we have that
+            \[f\ev{X,Y}(\phi,x)=f\phi_C(1_C,x)=\ev{X,Y}(f\phi, x)=\ev{X,Y}\circ (f\times 1_X)(\phi,x).\]
+        \end{proof}
+    \end{solution}
+\end{exercise}
+
+\begin{exercise}{5}
+    Prove that $y\colon\Ccal\to\presheaf\Ccal$ preserves all limits which exist in $\Ccal$. Prove also, that if $\Ccal$ is cartesian closed, $y$ preserve exponents.
+    \begin{solution}
+        \begin{proof}
+           Let $F\colon I\to \Ccal$ be a diagram with limit $(C,\eta\colon \Delta_C\Rightarrow F)$ in $\Ccal$. Functoriality of $y$ implies that $(y_C,y\eta)$ is a cone for $yF$. Let $(X,\mu)$ be any other cone for $yF$. Since every presheaf is a colimit of representables, there exists a diagram $G\colon J\to\Ccal$ and a natrual transformation $\nu\colon yG\Rightarrow\Delta_X$ such that $(X,\nu)$ is a colimiting cocone. Then for each $x\in J$, $(y_{Gx},(\mu_i\nu_{x})_{i\in I})$ is a cone for $yF$, and since $y$ is full and faithful, it is the image of a cone in $\Ccal$. Thus, for each $x\in J$ we have unique map $Gx\to C$ and these maps assemble into the components of a natural transformation $G\Rightarrow\Delta_C$. Since $(X,\nu)$ is colimiting for $yG$, we get a unique map $X\to yC$, which proves that $(y_C,y\eta)$ is a limiting cone for $yF$.
+
+           Suppose $\Ccal$ is cartesian closed. We want to show that $y_{C^D}\cong (y_C)^{y_D}$ or equivalently, $\presheaf\Ccal(X\times y_D, y_C)\cong\presheaf\Ccal(X,y_{C^D})$ for every presheaf $X$. If $X$ is representable, then this certainly hold since
+           \begin{align*}
+            \presheaf\Ccal(y_B\times y_D, y_C)&\cong\presheaf\Ccal(y_{B\times D}, y_C)&&(y\text{ preserves limits})\\
+            &\cong\Ccal(B\times D, C)&&(y\text{ is full and faithful})\\
+            &\cong\Ccal(B,C^D)\\
+            &\cong\presheaf\Ccal(y_B, y_{C^D}).&&(y\text{ is full and faithful})
+           \end{align*}
+           For an arbitrary presheaf $X$, we use again that it is a colimit of some diagram $yG\colon J\to\presheaf\Ccal$. Then arrows $X\to y_{C^D}$ correspond to cocones on $yG$ with vertex $y_{C^D}$, which, by the isomorphism above, correspond to cocones on the diagram
+           \[J\xrightarrow{G}\Ccal\xrightarrow{y}\presheaf\Ccal\xrightarrow{(-)\times y_D}\presheaf\Ccal\]
+           with vertex $y_C$. Using that $(-)\times y_D$ preserves colimits, these cocones correspond to arrow $X\times y_D\to y_C$, as desired. 
+        \end{proof}
+    \end{solution}
+\end{exercise}
+
+\begin{exercise}{6}
+    Let $(P, \leq)$ be a preorder. For $p\in P$, let $\downarrow p = \{q\in P\mid q\leq p\}$. Show that sieves on $p$ can be identified with downwards closed subsets of $\downarrow p$. If we denote the unique arrow $q\to p$ by $qp$ and $U$ is a downwards closed subset of $\downarrow p$, what is $(qp)^*U$?
+    \begin{solution}
+        \begin{proof}
+            Let $R$ be a sieve on $p$. Since arrows are unique, we can identify an arrow $qp\in R$ with its domain $q$, and since for any $qp\in R$ and $r\leq q$ we have $rp=(rq)(qp)\in R$, we can identify $R$ with a downwards closed subset of $\downarrow p$.
+
+            If $U$ is downwards closed subset of $\downarrow p$, then pulling it back along $qp$ is precisely cutting it at $q$, i.e. $(qp)*U=U\cap \downarrow q$.
+        \end{proof}
+    \end{solution}
+\end{exercise}
+
+\begin{exercise}{7}
+    Show that $\Pcal(X)(C)=\Sub(y_C\times X)$ and that, for $f\colon C'\to C$, $\Pcal(X)(f)(U)=(y_f\times 1_X)^*(U)$. Prove also, that the element relation, as a subpresheaf $\elmrel_X$ of $\Pcal(X)\times X$, is given by
+    \[ (\elmrel_X)(C)=\{(U,x)\in\Sub(y_C\times X)\times XC\mid (1_C,x)\in UC\} \]
+\begin{solution}
+    \begin{proof}
+        Note that
+        \[\presheaf\Ccal(Y,\Omega^X)\cong\presheaf\Ccal(Y\times X,\Omega)\cong\Sub(Y\times X)\]
+        so indeed $\Pcal(X)=\Omega^X$. The isomorphism $\Pcal(X)(C)\cong\Sub(y_C\times X)$ follows from Yoneda
+        \[\Sub(y_C\times X)\cong\presheaf\Ccal(y_C\times X,\Omega)\cong\presheaf\Ccal(y_C,\Omega^X)\cong\Omega^X(C).\]
+
+        Let $U$ be a subpresheaf of $y_C\times X$ and $f\colon C'\to C$ an arrow in $\Ccal$. Let $\phi\colon y_c\times X\to\Omega$ be the map calssifying $U$. Then
+        \[\Omega^Xf(\phi)=\phi\circ (y_f\times 1_X)\]
+        so, $\Pcal(X)(f)$ should send $U$ to the subobject of $y_{C'}\times X$ classified by $\phi\circ (y_f\times 1_X)$, or equivalently, to the pullback of $U$ along $(y_f\times 1_X)$.
+        \[ \begin{tikzcd}
+            (y_f\times 1_X)^*U \arrow[d, hook] \arrow[r] & U \arrow[r] \arrow[d, hook]    & 1 \arrow[d, "t"] \\
+            y_C'\times X \arrow[r, "y_f\times 1_X"']     & y_C\times X \arrow[r, "\phi"'] & \Omega          
+        \end{tikzcd} \]
+
+        Observe that $\elmrel_X$ is just the subobject of $\Omega^X\times X$ classified by $\ev{X}\colon\Omega^X\times X\to\Omega$. So, if $U$ is a subobject of $y_C\times X$, $\phi:y_C\times X\to\Omega$ classifies $U$ and $x\in XC$ we have that $(U,x)\in\elmrel_XC$ if and only if $\phi_C(1_C, x)$ is the maximal sieve on $C$ if and only if $(1_C, x)\in UC$.
+    \end{proof}
+\end{solution}
+\end{exercise}
+
+\begin{exercise}{8}
+    Let $\Ecal$ be a topos with subobject classifier $1\xrightarrow{t}\Omega$. Recall that an object $C$ of a category $\Ccal$ is called injective if any diagram $N\xleftarrow{m} M\xrightarrow{f} C$ with $m$ mono, admits an extension by an arrow $g\colon N\to C$ satisfying $gm=f$.
+    \begin{exercises}
+        \item Prove that $\Omega$ is injective.
+        \item Prove that every object of the form $\Omega^X$ is injective.
+        \item Conclude that $\Ecal$ has enough injectives.
+    \end{exercises}
+\begin{solution}
+    \begin{exercises}
+        \item \begin{proof}
+            Let $i\colon A\to M$ be the subobject of $M$ classified by $f$. Then $mi\colon A\to N$ is monic, so there's a $\phi\colon N\to\Omega$ which classifies it. I claim this $\phi$ does the trick. Consider the diagram
+            \[ \begin{tikzcd}
+                A \arrow[d, "i"] \arrow[r, "1_A"] & A \arrow[d, "im"] \arrow[r] & 1 \arrow[d, "t"] \\
+                M \arrow[r, "f"]                  & N \arrow[r, "\phi"]         & \Omega          
+            \end{tikzcd} \]
+            and note that the right square is a pullback by definition of $\phi$ and the left square is a pullback since $m$ is monic. So the composite square is a pullback and in particular, $\phi m$ classifies $i$ so $\phi m = f$.
+        \end{proof}
+        \item \begin{proof}
+            Consider the diagram $N\xleftarrow{m} M\xrightarrow{f}\Omega^X$ with $m$ monic. Then we have a diagram $N\times X\xleftarrow{m\times 1_X} M\times X\xrightarrow{\bar{f}}\Omega$ where $\bar{f}$ is the transpose of $f$, and by the previous part there's a map $\bar{h}\colon N\times X\to\Omega$ such that $\bar{f}=\bar{h}\circ(m\times 1_X)$. Let $h\colon N\to\Omega^X$ be the transpose of $\bar{h}$. Then the diagram
+            \[ \begin{tikzcd}
+                \Omega^X\times X \arrow[rrd]                              &  &        \\
+                N\times X \arrow[rr, "\bar h"'] \arrow[u, "h\times 1_X"]  &  & \Omega \\
+                M\times X \arrow[rru, "\bar f"'] \arrow[u, "m\times 1_X"] &  &       
+            \end{tikzcd} \]
+            commutes, since the top and bottom squares commute, and it follows that $f=hm$.
+        \end{proof}
+        \item That depends on the definition of enough.
+    \end{exercises}
+\end{solution}
+\end{exercise}
+
+\begin{exercise}{9}
+    Let $\Ccal$ be a regular category, and $P$ an object in $\Ccal$. Prove that the following are equivalent:
+    \begin{equivalent}
+        \item For every regular epi $f\colon A\to B$, any arrow $P\to B$ factors through $f$.
+        \item Every regular epi with codomain $P$ has a section.
+    \end{equivalent}
+\begin{solution}
+    \begin{proof}
+        $(i)\Rightarrow(ii)$ Since the identity $P\to P$ factors through every regular epi $A\to P$ by assumption, the result follows.
+
+        $(ii)\Rightarrow (i)$ Let $f\colon A\to B$ be a regular epi, and $g\colon P\to B$ any morphism. We can take the pullback
+        \[ \begin{tikzcd}
+            X \arrow[d, "a"] \arrow[r, "b"] & A \arrow[d, "f"] \\
+            P \arrow[r, "g"]                & B               
+        \end{tikzcd} \]
+        and note that $a$ is a regular epi since $f$ is (by definition of a regular category). So $a$ admits a section $s$, and we have that $fbs=gas=g$.
+    \end{proof}
+\end{solution}
+\end{exercise}
+
+\begin{exercise}{10}
+    Show that if $\Ccal$ has equalizers, $\Ccal$ is Cauchy complete
+\begin{solution}
+    \begin{proof}
+        Let $e\colon C\to C$ be idempotent and $i\colon D\to C$ be the equalizer of $1_C,e\colon C\rightrightarrows C$. Then there exists and $r\colon C\to D$ such that 
+        $\begin{tikzcd}
+            D \arrow[r, "i"]                  & C \arrow[r, "e", shift left] \arrow[r, "1_C"', shift right] & C \\
+            C \arrow[ru, "e"'] \arrow[u, "r"] &                                                             &  
+        \end{tikzcd}$ 
+        commutes. Since $iri=ei=i$ it follows that 
+        $\begin{tikzcd}
+            D \arrow[r, "i"]                   & C \arrow[r, "e", shift left] \arrow[r, "1_C"', shift right] & C \\
+            D \arrow[u, "ri"] \arrow[ru, "i"'] &                                                             &  
+        \end{tikzcd}$
+        commutes, so $ri=1_D$.
+    \end{proof}
+\end{solution}
+\end{exercise}
+
+\begin{exercise}{11}
+    For a nonempty set $A$, let $F_A$ be the following presheaf on the real numbers $\Rbb$:
+    \[ F_A(U)=\begin{cases}
+        A,&0\in U\\
+        \{*\},&\text{otherwise}
+    \end{cases}. \]
+    Show that $F_A$ is a sheaf, and give a concrete presentation of the \'etale space corresponding to $F_A$. 
+\begin{solution}
+    Let $(U_i, x_i)_{i\in I}$ be a compatible family and $V=\bigcup U_i$. Suppose $0\not\in V$, so that $F(V)=\{*\}$ and we only have one choice for the amalgamation of the $x_i$'s. On the other hand, if $0\in V$, then we can choose any of the $x_i$ such that $0\in U_i$ (that is becuause if $0\in U_i\cap U_j$ then $x_i=x_j$)\todo[caption=Exercise 11]{To do}
+\end{solution}
+\end{exercise}
+
+\begin{exercise}{12}
+    Show that for a presheaf $F$ and the associated local homeomorphism $\pi\colon\coprod_{x\in X} G_x\to X$ that we have constructed, the following holds: every morphism of presheaves $F\to H$, where $H$ is a sheaf, factors uniquely through the sheaf corresponding to $\pi\colon\coprod_{x\in X} G_x\to X$. Conclude that $\pi\colon\coprod_{x\in X}G_x\to X$ is the associated sheaf of $F$. Conclude that the inclusion of categories $\Sh(X)\to\presheaf{\Ocal_X}$ has a left adjoint. 
+\begin{solution}
+    \begin{proof}
+        We have the sheaf $\Fcal$ given by
+        \[ \Fcal(U)=\{s\colon U\to \coprod_{x\in X}G_x\mid s\text{ continuous and }\pi s=1_U\}.\]
+        Let $H$ be a sheaf and $\eta\colon F\to H$ a map of presheaves.\todo[caption=Exercise 12]{To do}
+    \end{proof}
+\end{solution}
+\end{exercise}
+
+\begin{exercise}{13}
+    Show that the category $\Sh(X)$ is closed under finite limits in $\presheaf{\Ocal_X}$, and that the left adjoint of \ref{ex:12} preserve finite limits.
+\begin{solution}
+    \begin{proof}
+        \todo[caption=Exercise 13]{To do}
+    \end{proof}
+\end{solution}
+\end{exercise}
+
+\begin{exercise}{14}
+    $F$ is separated if and only if each compatible family in $F$, indexed by a covering sieve, has at most one amalgamation.
+\begin{solution}
+    \begin{proof}
+        \todo[caption=Exercise 14]{To do}
+    \end{proof}
+\end{solution}
+\end{exercise}
+
+\begin{exercise}{15}
+    Suppose $G$ is a subpresheaf of $F$. If $G$ is a sheaf, then $G$ is closed in $\Sub(F)$. Conversely, every closed subpresheaf of a sheaf is a sheaf.
+\begin{solution}
+    \begin{proof}
+        \todo[caption=Exercise 15]{To do}
+    \end{proof}
+\end{solution}
+\end{exercise}
+
+\begin{exercise}{16}
+    Prove that $F$ is a sheaf if and only if for every presheaf $X$ and every dense subpresheaf $A$ of $X$, any arrow $A\to F$ has a unique extension to an arrow $X\to F$.
+\begin{solution}
+    \begin{proof}
+        \todo[caption=Exercise 16]{To do}
+    \end{proof}
+\end{solution}
+\end{exercise}
+
+\begin{exercise}{17}
+    Show that every split fork is a coequalizer diagram, and moreover a coequalizer which is preserved by any functor (this is called an \textit{absolute} coequalizer).
+\begin{solution}
+\todo[caption=Exercise 17]{To do}
+\end{solution}
+\end{exercise}
+
+\begin{exercise}{18}
+    Suppose $D_1$ is the diagram 
+    \begin{tikzcd}
+        a \arrow[r, "f", shift left] \arrow[r, "g"', shift right] & b \arrow[r, "h"] & c
+    \end{tikzcd}
+    in a category $\Ccal$, and $D_2$ is the 
+    \begin{tikzcd}
+        a' \arrow[r, "f'", shift left] \arrow[r, "g'"', shift right] & b' \arrow[r, "h'"] & c'
+    \end{tikzcd}
+    diagram in $\Ccal$. Assume that $D_2$ is a retract of $D_1$ in the category of diagrams in $\Ccal$ of type 
+    \begin{tikzcd}
+        \bullet \arrow[r, shift left] \arrow[r, shift right] & \bullet \arrow[r] & \bullet
+    \end{tikzcd}.
+    Prove that if $D_1$ is a split fork, then so it $D_2$.
+\begin{solution}
+\todo[caption=Exercise 18]{To do}
+\end{solution}
+\end{exercise}

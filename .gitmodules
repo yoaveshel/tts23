@@ -1,0 +1,3 @@
+[submodule "src/latex-config"]
+	path = src/latex-config
+	url = git@github.com:yoaveshel/latex-config.git
